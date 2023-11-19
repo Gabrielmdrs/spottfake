@@ -4,12 +4,28 @@ const idade = document.getElementById("idade");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const passwordConfirmation = document.getElementById("password-confirmation");
+const cepInput = document.getElementById("cep");
 
 let usuarios = [];
+let cep = [];
+
+cepInput.addEventListener("input", function() {
+  cep = cepInput.value.split("");
+  
+  if(cep.length >=8){
+    completaEndereco();
+  }
+
+  
+  
+
+
+});
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   checkInputs();
+
 });
 
 function checkInputs() {
@@ -88,4 +104,31 @@ function checkEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
     email
   );
+}
+
+function completaEndereco(){
+  
+  let cep = $('#cep').val();
+  if (!cep){
+    alert("Insira um cep valido!")
+  }
+
+    var settings = {
+        "url": `https://viacep.com.br/ws/${cep}/json/`,
+        "method": "GET",            
+      };
+      
+      $.ajax(settings).done(function (response) {  
+
+        $('#logradouro').val(response.logradouro);
+        $('#bairro').val(response.bairro);
+        
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.error("Erro na requisição AJAX: ",textStatus,errorThrown);
+        alert("CEP informado invalido!");
+      });
+  
+  
+
 }

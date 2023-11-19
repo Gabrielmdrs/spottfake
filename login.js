@@ -1,37 +1,23 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('form');
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
-    const errorText = document.querySelector('.form-control small');
+var a=0;
+function validateAndSubmit() {
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    
+    
 
-    form.addEventListener('submit', function (event) {
-    event.preventDefault(); 
+    if (username === 'matheus' && password === '12345') {
+      alert('Login bem-sucedido! Redirecionando para a página principal...');
+      window.location.href ='index (1).html';
+    } else  {
+      alert('Nome de usuário ou senha incorretos. Tente novamente.');
+      a++;
+      
+    if (a==3){
+        $('#button').hide();
+      }
+      
 
-    const username = usernameInput.value;
-    const password = passwordInput.value;
-
-
-    if (username === 'Robson123' && password === '12345678') {
-        alert("Login bem-sucedido!");
-        // bootbox.alert({
-        // message: 'Login bem-sucedido!',
-        // callback: function () {
-            
-        //     window.location.href = 'pagina_de_redirecionamento.html';
-        // }
-        // });
-    } else {
-
-        errorText.textContent = 'Nome de usuário ou senha incorretos. Tente novamente.';
-        errorText.style.display = 'block';
+      
+      
     }
-    });
-
-    usernameInput.addEventListener('input', function () {
-    errorText.style.display = 'none';
-    });
-
-    passwordInput.addEventListener('input', function () {
-    errorText.style.display = 'none';
-    });
-});
+  }
